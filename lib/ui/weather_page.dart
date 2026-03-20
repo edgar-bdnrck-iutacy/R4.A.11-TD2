@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/forecast_item.dart';
@@ -56,10 +57,15 @@ class _WeatherPageState extends State<WeatherPage> {
         ],
       ),
       body: FutureBuilder<Weather>(
-        future: openWeatherMapApi.getWeather(widget.latitude, widget.longitude),
+        future: openWeatherMapApi.getWeather(
+          widget.latitude,
+          widget.longitude,
+        ),
         builder: (context, weatherSnapshot) {
           if (weatherSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           if (weatherSnapshot.hasError) {
@@ -72,7 +78,9 @@ class _WeatherPageState extends State<WeatherPage> {
           }
 
           if (!weatherSnapshot.hasData) {
-            return const Center(child: Text('Aucune donnée météo disponible.'));
+            return const Center(
+              child: Text('Aucune donnée météo disponible.'),
+            );
           }
 
           final weather = weatherSnapshot.data!;
@@ -90,7 +98,10 @@ class _WeatherPageState extends State<WeatherPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildCurrentWeatherCard(weather, openWeatherMapApi),
+                    _buildCurrentWeatherCard(
+                      weather,
+                      openWeatherMapApi,
+                    ),
                     const SizedBox(height: 16),
                     _buildDetailsCard(weather),
                     const SizedBox(height: 16),
@@ -156,7 +167,10 @@ class _WeatherPageState extends State<WeatherPage> {
             const SizedBox(height: 16),
             Text(
               weather.condition,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
@@ -173,10 +187,15 @@ class _WeatherPageState extends State<WeatherPage> {
             const SizedBox(height: 16),
             Text(
               '${weather.temperature.toStringAsFixed(1)} °C',
-              style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
-            Text('Ressenti : ${weather.feelsLike.toStringAsFixed(1)} °C'),
+            Text(
+              'Ressenti : ${weather.feelsLike.toStringAsFixed(1)} °C',
+            ),
           ],
         ),
       ),
@@ -191,7 +210,10 @@ class _WeatherPageState extends State<WeatherPage> {
           children: [
             const Text(
               'Détails',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             _buildDetailRow(
@@ -221,8 +243,13 @@ class _WeatherPageState extends State<WeatherPage> {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Expanded(child: Text(label)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Expanded(
+            child: Text(label),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -258,7 +285,10 @@ class _WeatherPageState extends State<WeatherPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(forecast.description, textAlign: TextAlign.center),
+              Text(
+                forecast.description,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -301,9 +331,9 @@ class CustomScrollBehavior extends MaterialScrollBehavior {
 
   @override
   Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    PointerDeviceKind.stylus,
-    PointerDeviceKind.unknown,
-  };
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.unknown,
+      };
 }

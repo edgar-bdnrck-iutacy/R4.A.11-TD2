@@ -17,7 +17,9 @@ class ForecastItem {
     final weather = weatherList.first as Map<String, dynamic>;
 
     return ForecastItem(
-      dateTime: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (json['dt'] as int) * 1000,
+      ),
       temperature: (main['temp'] as num).toDouble(),
       description: weather['description'] as String,
       icon: weather['icon'] as String,

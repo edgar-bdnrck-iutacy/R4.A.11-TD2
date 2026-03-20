@@ -49,7 +49,9 @@ class Weather {
       windSpeed: wind['speed'] == null ? 0 : (wind['speed'] as num).toDouble(),
       cloudiness: clouds['all'] == null ? 0 : clouds['all'] as int,
       visibility: json['visibility'] == null ? 0 : json['visibility'] as int,
-      dateTime: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (json['dt'] as int) * 1000,
+      ),
     );
   }
 }

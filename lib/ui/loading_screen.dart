@@ -57,13 +57,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SearchPage()),
+        MaterialPageRoute(
+          builder: (context) => const SearchPage(),
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }

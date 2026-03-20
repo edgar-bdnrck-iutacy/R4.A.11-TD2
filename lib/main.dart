@@ -25,7 +25,9 @@ class WeatherApp extends StatelessWidget {
         Provider(
           create: (_) => OpenWeatherMapApi(apiKey: openWeatherMapApiKey),
         ),
-        Provider(create: (_) => GeolocationService()),
+        Provider(
+          create: (_) => GeolocationService(),
+        ),
       ],
       child: MaterialApp(
         title: 'Weather App',

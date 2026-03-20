@@ -11,11 +11,12 @@ class Location {
   final double lon;
   final String country;
 
-  Location.fromJson(Map<String, dynamic> json)
-    : this(
-        name: json['name'] as String,
-        lat: (json['lat'] as num).toDouble(),
-        lon: (json['lon'] as num).toDouble(),
-        country: json['country'] as String,
-      );
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      name: json['name'] as String,
+      lat: (json['lat'] as num).toDouble(),
+      lon: (json['lon'] as num).toDouble(),
+      country: json['country'] as String,
+    );
+  }
 }

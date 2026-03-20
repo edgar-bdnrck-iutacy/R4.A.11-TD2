@@ -29,7 +29,9 @@ class OpenWeatherMapApi {
     int limit = 5,
   }) async {
     final response = await http.get(
-      Uri.parse('$baseUrl/geo/1.0/direct?appid=$apiKey&q=$query&limit=$limit'),
+      Uri.parse(
+        '$baseUrl/geo/1.0/direct?appid=$apiKey&q=$query&limit=$limit',
+      ),
     );
 
     if (response.statusCode == HttpStatus.ok) {

@@ -20,7 +20,9 @@ class _SearchPageState extends State<SearchPage> {
     final openWeatherMapApi = context.read<OpenWeatherMapApi>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Recherche')),
+      appBar: AppBar(
+        title: const Text('Recherche'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -33,16 +35,27 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: (value) {
                 query = value;
               },
+              onSubmitted: (_) {
+                if (query.isEmpty) {
+                  return;
+                }
+
+                setState(() {
+                  locationsSearchResults =
+                      openWeatherMapApi.searchLocations(query);
+                });
+              },
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  locationsSearchResults = openWeatherMapApi.searchLocations(
-                    query,
-                  );
-                });
-              },
+              onPressed: query.isEmpty
+                  ? null
+                  : () {
+                      setState(() {
+                        locationsSearchResults =
+                            openWeatherMapApi.searchLocations(query);
+                      });
+                    },
               child: const Text('Rechercher'),
             ),
             const SizedBox(height: 16),
@@ -56,7 +69,9 @@ class _SearchPageState extends State<SearchPage> {
                   future: locationsSearchResults,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
 
                     if (snapshot.hasError) {
@@ -82,8 +97,9 @@ class _SearchPageState extends State<SearchPage> {
                         final location = locations[index];
 
                         return ListTile(
+                          leading: const Icon(Icons.location_city),
                           title: Text(location.name),
-                          subtitle: Text(location.country),
+                          subtitle: Text('${location.name}, ${location.country}'),
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () {
                             Navigator.push(
